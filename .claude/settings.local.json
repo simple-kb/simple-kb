@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(node import-tractatus.js:*)",
+      "Bash(node .claude/skills/import-tractatus/import-tractatus.js:*)"
     ],
     "deny": [],
     "ask": []
