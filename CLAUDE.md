@@ -1,12 +1,5 @@
 # CLAUDE.md - Project Instructions
 
-## Environment
-
-- **Platform**: Windows
-- **Working Directory**: `C:\Users\a.vergnaud\dev\simple-kb`
-- **IMPORTANT**: Do not change the working directory
-- **IMPORTANT**: Do not work inside the `.claude-worktrees` directory
-
 ## Project: simple-kb
 
 ### Goal
