@@ -23,32 +23,71 @@ Both propositions and relations may have associated **metadata**.
 
 ```
 /propositions/
-  {slug}-{uuid8}.md
+  {uuid8}/
+    {lang}-{slug}.md
+    {lang}-{slug}.md
 /relations/
-  {slug}-{uuid8}.md
+  {source-uuid8}-{target-uuid8}/
+    {lang}-{source-uuid8}-{target-uuid8}.md
+    {lang}-{source-uuid8}-{target-uuid8}.md
+```
+
+**Examples:**
+```
+/propositions/
+  a1b2c3d4/
+    fr-le-monde.md
+    en-the-world.md
+/relations/
+  a1b2c3d4-e5f6g7h8/
+    fr-a1b2c3d4-e5f6g7h8.md
+    en-a1b2c3d4-e5f6g7h8.md
 ```
 
 ### Proposition File Contains
 
 - title
-- type (performative | prescriptive | descriptive)
+- type (see [/config/proposition-types.md](config/proposition-types.md))
+- language (ISO 639-1 code: fr, en, es, etc.)
 - content
 - tags
 - metadata: creation date, modification date, author, status
 
+**Multilingual Support:**
+- Each proposition has a unique 8-character UUID
+- Multiple language versions live in the same UUID directory
+- All metadata is duplicated in each language file
+- Slugs can differ per language (e.g., `fr-le-monde.md` vs `en-the-world.md`)
+
 ### Relation File Contains
 
 - title
-- type (implication | illustration)
-- source: `{slug}-{uuid8}`
-- target: `{slug}-{uuid8}`
+- type (see [/config/relation-types.md](config/relation-types.md))
+- language (ISO 639-1 code: fr, en, es, etc.)
+- source: `{uuid8}` (language-agnostic)
+- target: `{uuid8}` (language-agnostic)
 - metadata: creation date, modification date, author, status
+
+**Multilingual Support:**
+- Each relation has a unique directory named `{source-uuid8}-{target-uuid8}`
+- Multiple language versions live in the same relation directory
+- All metadata is duplicated in each language file
+- Title and content can differ per language
 
 ### Naming Rules
 
+**Propositions:**
+- UUID: 8 characters (first 8 chars of a generated UUID)
+- Language: ISO 639-1 code (fr, en, es, etc.)
 - Slug: lowercase, hyphens, max 20 chars, no special characters
-- Followed by first 8 characters of UUID
-- Example: `my-proposition-a1b2c3d4.md`
+- Format: `{lang}-{slug}.md`
+- Example: `fr-ma-proposition.md`
+
+**Relations:**
+- Directory format: `{source-uuid8}-{target-uuid8}/`
+- File format: `{lang}-{source-uuid8}-{target-uuid8}.md`
+- Example: `fr-a1b2c3d4-e5f6g7h8.md`
+- References (source/target) are language-agnostic (UUID only)
 
 ### Hierarchy
 

@@ -1,16 +1,22 @@
-# Import Tractatus Logico-Philosophicus
+# Import Tractatus Logico-Philosophicus (Multilingual)
 
-This skill imports propositions and relations from Wittgenstein's Tractatus Logico-Philosophicus into the simple-kb knowledge base.
+This skill imports propositions and relations from Wittgenstein's Tractatus Logico-Philosophicus into the simple-kb knowledge base in three languages: French, English, and Spanish.
 
 ## Instructions
 
-You are tasked with importing content from the Tractatus Logico-Philosophicus markdown file into the simple-kb format.
+You are tasked with importing content from the Tractatus Logico-Philosophicus markdown files (in three languages) into the simple-kb format.
 
-### Input File
+### Input Files
 
-Ask the user: "Where is the Tractatus md file located?"
+The skill uses the following default file paths:
+- **French**: `C:\Users\a.vergnaud\dev\test-import-data-1\fr\Tractatus logico-philosophicus (français).md`
+- **English**: `C:\Users\a.vergnaud\dev\test-import-data-1\en\Tractatus Logico-Philosophicus (English).md`
+- **Spanish**: `C:\Users\a.vergnaud\dev\test-import-data-1\es\Tratado lógico-filosófico.md`
 
-Wait for the user to provide the file path before proceeding with the import.
+Users can override these paths by providing command-line arguments:
+```bash
+node import-tractatus.js [french-file] [english-file] [spanish-file]
+```
 
 ### Understanding the Structure
 
@@ -29,21 +35,32 @@ The Tractatus uses a decimal numbering system to show hierarchical relationships
 
 ### Extraction Process
 
-1. **Parse propositions** from the markdown file
+1. **Build UUID map** (CRITICAL STEP):
+   - Parse the French file first to extract all proposition numbers
+   - Generate ONE UUID for each Tractatus number (e.g., "2.01" → "a1b2c3d4")
+   - Store in a map: `{ tractatus_number → uuid }`
+   - This ensures all three languages use the **same UUID** for the same proposition
+
+2. **Parse all language files**:
    - Format: `**[NUMBER](URL)** TEXT`
    - Extract: proposition number, URL, and text content
-   - Continue reading until the next proposition or section boundary
+   - Parse French, English, and Spanish files
 
-2. **Generate filenames** for each proposition:
-   - Create slug from proposition number: `prop-X-Y-Z` (e.g., `prop-1-1-11` for 1.1.11)
-   - Generate 8-character UUID prefix
-   - Filename: `{slug}-{uuid8}.md`
+3. **Create proposition files** in `/propositions/{uuid}/`:
+   ```
+   /propositions/
+     a1b2c3d4/
+       fr-prop-2-01.md
+       en-prop-2-01.md
+       es-prop-2-01.md
+   ```
 
-3. **Create proposition files** in `/propositions/`:
+   Each file contains:
    ```yaml
    ---
    title: "Proposition [NUMBER]"
    type: descriptive
+   language: [fr|en|es]
    tags: [tractatus, wittgenstein]
    created: [current date]
    modified: [current date]
@@ -53,48 +70,42 @@ The Tractatus uses a decimal numbering system to show hierarchical relationships
    source_url: [URL from markdown]
    ---
 
-   [TEXT CONTENT]
+   [TEXT CONTENT in respective language]
    ```
 
-4. **Create implication relations** in `/relations/`:
+4. **Create implication relations** in `/relations/{source-uuid}-{target-uuid}/`:
+   ```
+   /relations/
+     a1b2c3d4-e5f6g7h8/
+       fr-a1b2c3d4-e5f6g7h8.md
+       en-a1b2c3d4-e5f6g7h8.md
+       es-a1b2c3d4-e5f6g7h8.md
+   ```
+
    - For each proposition (except main ones), create an implication relation to its parent
    - Parent is determined by removing the last digit/segment from the number
    - Example: `2.012` → parent is `2.01`
-
-   ```yaml
-   ---
-   title: "Implication: [PARENT_NUMBER] → [CHILD_NUMBER]"
-   type: implication
-   source: {parent-slug}-{parent-uuid8}
-   target: {child-slug}-{child-uuid8}
-   created: [current date]
-   modified: [current date]
-   author: system
-   status: imported
-   ---
-
-   Proposition [PARENT_NUMBER] implies proposition [CHILD_NUMBER] in the hierarchical structure of the Tractatus.
-   ```
+   - Use the same UUIDs from the UUID map
 
 ### Important Notes
 
-- **Preserve original content**: Keep the French text exactly as it appears
+- **UUID consistency**: CRITICAL - The same proposition number must use the same UUID across all languages
+- **Preserve original content**: Keep the text in each language exactly as it appears
 - **Handle special cases**: Some propositions may have multiple paragraphs or formatting
-- **Track footnotes**: Note any footnote references (e.g., `[^tlp-note-1_2-0]`) in metadata
+- **Track footnotes**: Footnote references (e.g., `[^tlp-note-1_2-0]`) are removed from content
 - **Validate structure**: Ensure all parent propositions exist before creating child relations
-- **Generate unique UUIDs**: Each file needs a unique 8-character UUID prefix
 
 ### Output
 
 After import, report:
-- Number of propositions created
-- Number of implication relations created
+- Number of unique propositions
+- Number of proposition files created per language (fr, en, es)
+- Number of relation files created per language (fr, en, es)
 - Any errors or warnings encountered
-- Sample of created files for verification
 
 ### Future Improvements (Deferred)
 
 - Import footnote content as separate propositions or metadata
 - Handle cross-references between non-hierarchical propositions
-- Support for multiple languages/translations
+- Support for additional languages
 - Validation of DAG structure
