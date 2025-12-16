@@ -38,6 +38,24 @@ ensureDirectories(OUTPUT_DIR);
 // ============================================
 
 /**
+ * Localized relation text
+ */
+const RELATION_TEXT = {
+    fr: {
+        title: (parent, child) => `Implication : ${parent} → ${child}`,
+        content: (parent, child) => `La proposition ${parent} implique la proposition ${child} dans la structure hiérarchique du Tractatus.`
+    },
+    en: {
+        title: (parent, child) => `Implication: ${parent} → ${child}`,
+        content: (parent, child) => `Proposition ${parent} implies proposition ${child} in the hierarchical structure of the Tractatus.`
+    },
+    es: {
+        title: (parent, child) => `Implicación: ${parent} → ${child}`,
+        content: (parent, child) => `La proposición ${parent} implica la proposición ${child} en la estructura jerárquica del Tractatus.`
+    }
+};
+
+/**
  * Get parent proposition number based on Tractatus decimal hierarchy
  * The Tractatus hierarchy: each digit after the decimal adds a level
  * - "2" -> no parent (main proposition)
@@ -186,13 +204,13 @@ uuidMap.forEach((childUuid, number) => {
                     sourceUuid: parentUuid,
                     targetUuid: childUuid,
                     language: lang,
-                    title: `Implication: ${parentNumber} → ${number}`,
+                    title: RELATION_TEXT[lang].title(parentNumber, number),
                     type: 'implication',
                     source: parentUuid,
                     target: childUuid,
                     author: 'system',
                     status: 'imported',
-                    content: `Proposition ${parentNumber} implies proposition ${number} in the hierarchical structure of the Tractatus.`
+                    content: RELATION_TEXT[lang].content(parentNumber, number)
                 }, OUTPUT_DIR);
                 relCount[lang]++;
             }
