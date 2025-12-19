@@ -1,0 +1,16 @@
+---
+title: "Proposition 2.0131"
+type: descriptive
+language: en
+tags: [tractatus, wittgenstein]
+created: 2025-12-14
+modified: 2025-12-14
+author: Ludwig Wittgenstein
+status: imported
+original_number: "2.0131"
+source_url: https://www.wittgensteinproject.org/w/index.php/Logisch-philosophische_Abhandlung#2.0131
+---
+
+A spatial object must lie in infinite space. (A point in space is an argument place.)
+
+A speck in a visual field need not be red, but it must have a colour; it has, so to speak, a colour space round it. A tone must have *a* pitch, the object of the sense of touch *a* hardness, etc.

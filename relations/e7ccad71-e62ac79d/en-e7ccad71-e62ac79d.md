@@ -1,0 +1,13 @@
+---
+title: "Implication: 4.031 → 4.0312"
+type: implication
+language: en
+source: e7ccad71
+target: e62ac79d
+created: 2025-12-14
+modified: 2025-12-14
+author: system
+status: imported
+---
+
+Proposition 4.031 implies proposition 4.0312 in the hierarchical structure of the Tractatus.

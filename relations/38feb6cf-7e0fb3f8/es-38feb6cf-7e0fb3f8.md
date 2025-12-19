@@ -1,0 +1,13 @@
+---
+title: "Implicación: 6.12 → 6.124"
+type: implication
+language: es
+source: 38feb6cf
+target: 7e0fb3f8
+created: 2025-12-14
+modified: 2025-12-14
+author: system
+status: imported
+---
+
+La proposición 6.12 implica la proposición 6.124 en la estructura jerárquica del Tractatus.

@@ -1,0 +1,13 @@
+---
+title: "Implication: 2.151 → 2.1512"
+type: implication
+language: en
+source: cabcf749
+target: 959f2e9d
+created: 2025-12-14
+modified: 2025-12-14
+author: system
+status: imported
+---
+
+Proposition 2.151 implies proposition 2.1512 in the hierarchical structure of the Tractatus.

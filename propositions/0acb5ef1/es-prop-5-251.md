@@ -1,0 +1,14 @@
+---
+title: "Proposition 5.251"
+type: descriptive
+language: es
+tags: [tractatus, wittgenstein]
+created: 2025-12-14
+modified: 2025-12-14
+author: Ludwig Wittgenstein
+status: imported
+original_number: "5.251"
+source_url: https://www.wittgensteinproject.org/w/index.php/Logisch-philosophische_Abhandlung#5.251
+---
+
+Una función no puede ser su propio argumento, pero el resultado de una operación sí puede llegar a ser su propia base.
