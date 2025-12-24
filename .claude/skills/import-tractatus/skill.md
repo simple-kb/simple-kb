@@ -8,10 +8,13 @@ You are tasked with importing content from the Tractatus Logico-Philosophicus ma
 
 ### Input Files
 
-The skill uses the following default file paths:
-- **French**: `C:\Users\a.vergnaud\dev\test-import-data-1\fr\Tractatus logico-philosophicus (français).md`
-- **English**: `C:\Users\a.vergnaud\dev\test-import-data-1\en\Tractatus Logico-Philosophicus (English).md`
-- **Spanish**: `C:\Users\a.vergnaud\dev\test-import-data-1\es\Tratado lógico-filosófico.md`
+The skill reads the base folder path from the `.env` file:
+- **Environment Variable**: `TRACTATUS_IMPORT_FOLDER` (required)
+
+The skill then uses the following file structure within that folder:
+- **French**: `{TRACTATUS_IMPORT_FOLDER}\fr\Tractatus logico-philosophicus (français).md`
+- **English**: `{TRACTATUS_IMPORT_FOLDER}\en\Tractatus Logico-Philosophicus (English).md`
+- **Spanish**: `{TRACTATUS_IMPORT_FOLDER}\es\Tratado lógico-filosófico.md`
 
 Users can override these paths by providing command-line arguments:
 ```bash

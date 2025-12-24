@@ -4,7 +4,11 @@
       "Bash(mkdir:*)",
       "Bash(node import-tractatus.js:*)",
       "Bash(node .claude/skills/import-tractatus/import-tractatus.js:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(dir:*)",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\a.vergnaud\\\\dev\\\\obsidian-vault\\\\justice-naturelle\" -Recurse -File -Filter \"*.md\")",
+      "Bash(Select-Object -First 30)",
+      "Bash(ForEach-Object { $_FullName })"
     ],
     "deny": [],
     "ask": []

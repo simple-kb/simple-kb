@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 const {
     ensureDirectories,
     generateUuid8,
@@ -9,10 +10,18 @@ const {
 } = require('../../../lib/kb-utils');
 
 // Default configuration
+const TRACTATUS_FOLDER = process.env.TRACTATUS_IMPORT_FOLDER;
+if (!TRACTATUS_FOLDER) {
+    console.error('Error: TRACTATUS_IMPORT_FOLDER environment variable is not set.');
+    console.error('Please set it in your .env file, for example:');
+    console.error('TRACTATUS_IMPORT_FOLDER=C:\\\\path\\\\to\\\\your\\\\tractatus\\\\data');
+    process.exit(1);
+}
+
 const DEFAULT_FILES = {
-    fr: 'C:\\Users\\a.vergnaud\\dev\\test-import-data-1\\fr\\Tractatus logico-philosophicus (français).md',
-    en: 'C:\\Users\\a.vergnaud\\dev\\test-import-data-1\\en\\Tractatus Logico-Philosophicus (English).md',
-    es: 'C:\\Users\\a.vergnaud\\dev\\test-import-data-1\\es\\Tratado lógico-filosófico.md'
+    fr: path.join(TRACTATUS_FOLDER, 'fr', 'Tractatus logico-philosophicus (français).md'),
+    en: path.join(TRACTATUS_FOLDER, 'en', 'Tractatus Logico-Philosophicus (English).md'),
+    es: path.join(TRACTATUS_FOLDER, 'es', 'Tratado lógico-filosófico.md')
 };
 
 const OUTPUT_DIR = path.resolve(__dirname, '../../..');
