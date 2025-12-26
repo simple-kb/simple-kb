@@ -39,6 +39,21 @@ console.log(`  French:  ${inputFiles.fr}`);
 console.log(`  English: ${inputFiles.en}`);
 console.log(`  Spanish: ${inputFiles.es}\n`);
 
+// Clear existing propositions and relations folders
+const propsDir = path.join(OUTPUT_DIR, 'propositions');
+const relsDir = path.join(OUTPUT_DIR, 'relations');
+
+console.log('Clearing existing propositions and relations folders...');
+if (fs.existsSync(propsDir)) {
+    fs.rmSync(propsDir, { recursive: true, force: true });
+    console.log('  Deleted propositions/');
+}
+if (fs.existsSync(relsDir)) {
+    fs.rmSync(relsDir, { recursive: true, force: true });
+    console.log('  Deleted relations/');
+}
+console.log('');
+
 // Ensure directories exist
 ensureDirectories(OUTPUT_DIR);
 

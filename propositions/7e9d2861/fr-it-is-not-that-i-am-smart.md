@@ -1,0 +1,16 @@
+---
+title: "It is not that I am smart"
+language: fr
+tags: []
+created: 2025-12-25
+modified: 2025-12-25
+author: TBD
+status: imported
+source_file: "It is not that I am smart.md"
+source_folder: ""
+---
+
+> It's not that I'm so smart; it's just that I stay with problems longer.
+
+
+Einstein
